@@ -7,8 +7,17 @@ namespace Program
     {
         static void Main(string[] args)
         {
-            Dataset x1  = new Dataset("TextFile1.txt");
-            Console.WriteLine(x1.StringConcatenationUsingStringBuilder());
+            MatrixGenerator gen = MatrixGenerator.GetInstance();
+            double[][] matrix = gen.CreateMatrix(5, 5);            
+            for(int i = 0; i < matrix.Length; i++)
+            {
+                for(int j = 0; j < matrix.Length; i++)
+                {
+                    Console.WriteLine(matrix[i][j]);
+                }
+            }
+
+
         }
     }
 }
