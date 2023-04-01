@@ -1,4 +1,4 @@
-﻿using RPPONLV3;
+using RPPONLV3;
 using System.Diagnostics;
 
 namespace Program
@@ -8,16 +8,24 @@ namespace Program
         static void Main(string[] args)
         {
             MatrixGenerator gen = MatrixGenerator.GetInstance();
-            double[][] matrix = gen.CreateMatrix(5, 5);            
-            for(int i = 0; i < matrix.Length; i++)
+            int a, b;
+            a = Convert.ToInt32(Console.ReadLine());
+            b = Convert.ToInt32(Console.ReadLine());
+            double[][] matrix = gen.CreateMatrix(a, b);
+
+            for(int i = 0; i < a; i++)
             {
-                for(int j = 0; j < matrix.Length; i++)
+                for(int j = 0; j < b; j++)
                 {
                     Console.WriteLine(matrix[i][j]);
+
                 }
+                
             }
+           
 
-
+           
         }
     }
 }
+
