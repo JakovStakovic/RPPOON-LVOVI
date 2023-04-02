@@ -1,0 +1,58 @@
+public class NotificationBuilder : IBuilder
+    {
+        String author;
+        String title;
+        String text;
+        DateTime timestamp;
+        Category level;
+        ConsoleColor color; 
+        public ConsoleNotification Build() 
+        { 
+            return new ConsoleNotification(author, title, text, timestamp,level,color);
+        }
+        public IBuilder SetAuthor(string author)
+        {
+            this.author = author;
+            return this;
+        }
+        public IBuilder SetTime(DateTime time)
+        {
+            this.timestamp = time;
+            return this;
+        }
+        public IBuilder SetTitle(string title)
+        {
+            this.title = title;
+            return this;
+        }
+        public IBuilder SetLevel(Category level) 
+        {
+            this.level = level;
+            return this;
+        }
+        public IBuilder SetColor(ConsoleColor color)
+        {
+            this.color = color;
+            return this;
+        }
+        public IBuilder SetText(string text) 
+        {
+            this.text = text;
+            return this;
+        }
+
+    }
+    
+    public class Program
+    {
+        static void Main(string[] args)
+        {
+            NotificationManager manag = new NotificationManager();
+            IBuilder build = new NotificationBuilder();
+            build.SetText("Jakov");
+            build.SetColor(ConsoleColor.Green);
+            build.SetAuthor("AUTOR JE JAKOV.");
+            manag.Display(build.Build());
+        }
+    }
+    
