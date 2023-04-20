@@ -1,0 +1,40 @@
+namespace Program
+{
+    public class Program
+    {
+        static void Main() 
+        {
+            RentingConsolePrinter print = new RentingConsolePrinter();
+            List<IRentable> items = new List<IRentable>();
+            items.Add(new Book("Zločin i kazna"));
+            items.Add(new Video("Muške priče"));
+            Console.WriteLine("Naslovi knjige i videa:");            
+            print.DisplayItems(items);
+            Console.WriteLine("Ukupna cijena:");
+            print.PrintTotalPrice(items);
+        }
+    }
+}
+
+
+namespace RPPOON.LV4
+{
+    public class Book : IRentable
+    {
+        private readonly double BaseBookPrice = 3.99;
+        public String Name { get; private set; }
+        public Book(string name)
+        {
+            this.Name = name;
+        }
+        public String Description { get { return this.Name; } }
+
+        public double CalculatePrice()
+        {
+            return BaseBookPrice;
+        }
+    }
+}
+
+
+
