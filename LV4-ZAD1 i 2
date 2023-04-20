@@ -66,3 +66,27 @@ private double[][] ConvertData(Dataset dataset)
    }
 
 
+ public class Program
+    {
+        static void Main()
+        {
+            Dataset readFile = new Dataset("file.csv");
+            Analyzer3rdParty analyzer = new Analyzer3rdParty();
+            Adapter adapter = new Adapter(analyzer);
+
+            double[] averagePerColumn = adapter.CalculateAveragePerColumn(readFile);
+            double[] averagePerRow = adapter.CalculateAveragePerRow(readFile);
+          
+            for (int i = 0; i < averagePerColumn.Length; i++)
+            {
+                Console.WriteLine(averagePerColumn[i]);
+            }
+
+            for (int j = 0; j < averagePerRow.Length; j++)
+            {
+                Console.WriteLine(averagePerRow[j]);
+            }
+            
+
+        }
+    }
