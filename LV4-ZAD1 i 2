@@ -1,0 +1,68 @@
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Runtime.ExceptionServices;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace RPPOON.LV4
+{
+    public class Analyzer3rdParty
+    {
+        public double[] PerRowAverage(double[][] data)
+        {
+            int rowCount = data.Length;
+            double[] results = new double[rowCount];
+            for (int i = 0; i < rowCount; i++)
+            {
+                results[i] = data[i].Average();
+            }
+            return results;
+        }
+        public double[] PerColumnAverage(double[][] data)
+        {
+            int columnCount = data[0].Length;
+            double[] results = new double[columnCount];
+            for(int j = 0; j < columnCount; j++)
+            {
+                double sum = 0;
+                double avg = 0;
+                for(int i = 0; i < data.Length; i++)
+                {
+                    sum += data[i][j];
+                }
+                avg = sum / data.Length;
+                results[j] = avg;
+            }
+            return results;
+        }
+    }
+    
+    
+}
+
+class Adapter : IAnalytics
+{
+
+private double[][] ConvertData(Dataset dataset)
+        {
+            IList<List<double>> source = dataset.GetData();
+            int rowCount = source.Count;
+            int columnCount = source[0].Count;
+            double[][] data = new double[rowCount][];
+            for(int i = 0; i < rowCount; i++)
+            {
+                data[i] = new double[columnCount];
+            }
+            for(int i = 0; i < rowCount; i++)
+            {
+                for(int j=0;j< columnCount; j++) 
+                {
+                    data[i][j] = source[i][j];
+                }
+            }
+            return data;
+        }
+   }
+
+
