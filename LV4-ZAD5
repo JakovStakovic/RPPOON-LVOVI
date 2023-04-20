@@ -1,0 +1,52 @@
+
+namespace Program
+{
+    public class Program
+    {
+        static void Main() 
+        {
+            RentingConsolePrinter print = new RentingConsolePrinter();
+            List<IRentable> items = new List<IRentable>();
+            items.Add(new HotItem(new Book("HitKnjiga")));
+            items.Add(new HotItem(new Video("STOJAN")));
+            items.Add(new Book("Zločin i kazna"));
+            items.Add(new Video("Muške priče"));
+            Console.WriteLine("Naslovi knjige i videa:");            
+            print.DisplayItems(items);
+            Console.WriteLine("Ukupna cijena:");
+            print.PrintTotalPrice(items);
+            List<IRentable> flashSale = new List<IRentable>();
+            for(int i=0;i<items.Count;i++)
+            {
+                flashSale.Add(new DiscountedItem(items[i]));
+            }
+            Console.WriteLine("Naslovi knjige i videa:");
+            print.DisplayItems(flashSale);
+            Console.WriteLine("Ukupna cijena:");
+            print.PrintTotalPrice(flashSale);
+
+        }
+    }
+}
+
+namespace RPPOON.LV4
+{
+    public class DiscountedItem : RentableDecorator
+    {
+        private readonly double Discount = 0.20;
+        public DiscountedItem(IRentable rentable) : base(rentable) { }
+
+        public override double CalculatePrice()
+        {
+            return base.CalculatePrice() * Discount;
+        }
+
+        public override String Description
+        {
+            get
+            {
+                return $"Now at [{Discount*100}%] off!" + base.Description;
+            }
+        }
+    }
+}
