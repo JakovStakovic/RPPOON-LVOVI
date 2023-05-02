@@ -1,0 +1,164 @@
+namespace Program
+{
+    class Program
+    {
+        static void Main()
+        {
+            List<IShipable> shipables = new List<IShipable>();
+            Box box = new Box("Kutija");
+            Box box1 = new Box("Kutija 2");
+            box.Add(new Product("Ovo je novi", 123123, 5));
+            Product product1 = new Product("Mis", 20.02,200);
+            Product product = new Product("iPhone", 40.2, 10);
+            Product best = new Product("Samsung", 10, 29);
+            shipables.Add(box);
+            shipables.Add(product1);
+            shipables.Add(product);
+            shipables.Add(best);
+            shipables.Add(box1);
+            shipables.Add(new Product("Pc", 2000, 200));
+            double a = 0;
+            double b = 0;
+            foreach(IShipable ship in shipables)
+            {
+                a += ship.Weight;
+                b += ship.Price;
+                Console.WriteLine(ship.Description());
+            }
+            Console.WriteLine(a);
+            Console.WriteLine(b);
+            
+        }
+    }
+}
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace RPPON.LV5
+{
+    class Box : IShipable
+    {
+        private List<IShipable> items;
+        private string name;
+        public Box(string name)
+        {
+            this.items = new List<IShipable>();
+            this.name = name;
+        }
+        public void Add(IShipable item)
+        {
+            this.items.Add(item);
+        }
+        public void Remove(IShipable item)
+        {
+            this.items.Remove(item);
+        }
+        public double Price
+        {
+            get
+            {
+                double totalPrice = 0;
+                foreach (IShipable item in items)
+                {
+                    totalPrice += item.Price;
+                }
+                return totalPrice;
+            }
+        }
+
+        public double Weight
+        {
+            get
+            {
+                double totalWeight = 0;
+                foreach(IShipable item in items)
+                {
+                    totalWeight += item.Weight;
+                }
+                return totalWeight;
+            }
+        }
+        public string Description(int depth = 0)
+        {
+            StringBuilder builder =
+           new StringBuilder(new string(' ', depth) + this.name + "\n");
+            foreach (IShipable item in items)
+            {
+                builder.Append(item.Description(depth + 2)).Append("\n");
+            }
+            return builder.ToString();
+        }
+    }
+}
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace RPPON.LV5
+{
+    public class ShippingService
+    {
+        private double pricePerKg;
+
+        public ShippingService(double pricePerKg)
+        {
+            this.pricePerKg = pricePerKg;
+        }
+
+        public double CalculatePacketPrice(double weight)
+        {
+            return pricePerKg * weight;
+        }
+        public override string ToString()
+        {
+            return $"Cijena dostave:";
+        }
+    }
+}
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace RPPON.LV5
+{
+    class Product : IShipable
+    {
+        private double price;
+        private double weight;
+        private string description;
+        public Product(string description, double price,double weight)
+        {
+            this.description = description;
+            this.price = price;
+            this.weight = weight;
+        }
+        public double Price { get { return this.price; } }
+        public string Description(int depth = 0)
+        {
+            return new string(' ', depth) + this.description;
+        }
+        public double Weight { get { return this.weight; } }
+    }
+}
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace RPPON.LV5
+{
+    interface IShipable
+    {
+        double Price { get; }
+        double Weight { get; }
+        string Description(int depth = 0);
+    }
+}
