@@ -17,6 +17,7 @@ namespace Program
             shipables.Add(best);
             shipables.Add(box1);
             shipables.Add(new Product("Pc", 2000, 200));
+            ShippingService price = new ShippingService(4);
             double a = 0;
             double b = 0;
             foreach(IShipable ship in shipables)
@@ -27,6 +28,7 @@ namespace Program
             }
             Console.WriteLine(a);
             Console.WriteLine(b);
+            Console.WriteLine(price.ToString() + price.Price(a)+" kn");
             
         }
     }
