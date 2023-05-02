@@ -28,7 +28,7 @@ namespace Program
             }
             Console.WriteLine(a);
             Console.WriteLine(b);
-            Console.WriteLine(price.ToString() + price.Price(a)+" kn");
+            Console.WriteLine(price.ToString() + price.CalculatePacketPrice(a)+" kn");
             
         }
     }
